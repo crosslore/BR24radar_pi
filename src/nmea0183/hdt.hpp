@@ -28,36 +28,37 @@
  *   More recent (2010) license statement:                                 *
  *         "It is BSD license, do with it what you will"                   *
  */
-#if ! defined( HDT_CLASS_HEADER )
+#if !defined(HDT_CLASS_HEADER)
 #define HDT_CLASS_HEADER
 
-class HDT : public RESPONSE
-{
+PLUGIN_BEGIN_NAMESPACE
 
-   public:
+class HDT : public RESPONSE {
+ public:
+  HDT();
+  ~HDT();
 
-      HDT();
-     ~HDT();
+  /*
+  ** Data
+  */
 
-      /*
-      ** Data
-      */
+  double DegreesTrue;
 
-      double DegreesTrue;
+  /*
+  ** Methods
+  */
 
-      /*
-      ** Methods
-      */
+  virtual void Empty(void);
+  virtual bool Parse(const SENTENCE& sentence);
+  virtual bool Write(SENTENCE& sentence);
 
-      virtual void Empty( void );
-      virtual bool Parse( const SENTENCE& sentence );
-      virtual bool Write( SENTENCE& sentence );
+  /*
+  ** Operators
+  */
 
-      /*
-      ** Operators
-      */
-
-      virtual const HDT& operator = ( const HDT& source );
+  virtual const HDT& operator=(const HDT& source);
 };
 
-#endif // HDT_CLASS_HEADER
+PLUGIN_END_NAMESPACE
+
+#endif  // HDT_CLASS_HEADER

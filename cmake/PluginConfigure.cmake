@@ -31,7 +31,7 @@ IF(NOT MSVC)
   ADD_DEFINITIONS( "-Wall -g -fprofile-arcs -ftest-coverage -fexceptions" )
  ELSE(PROFILING)
 #  ADD_DEFINITIONS( "-Wall -g -fexceptions" )
- ADD_DEFINITIONS( "-Wall -Wno-unused-result -g -O2 -fexceptions" )
+#  ADD_DEFINITIONS( "-Wall -Wno-unused-result -g -O2 -fexceptions" )
  ENDIF(PROFILING)
 
  IF(NOT APPLE)
@@ -48,8 +48,14 @@ IF(MSVC)
     ADD_DEFINITIONS(-D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_DEPRECATE)
 ENDIF(MSVC)
 
-SET(wxWidgets_USE_LIBS base core net xml html adv)
+SET(wxWidgets_USE_LIBS base core net xml html adv gl)
 SET(BUILD_SHARED_LIBS TRUE)
+
+SET( wxWidgets_USE_DEBUG OFF)
+SET( wxWidgets_USE_UNICODE ON)
+SET( wxWidgets_USE_UNIVERSAL OFF)
+SET( wxWidgets_USE_STATIC OFF)
+ADD_DEFINITIONS(-DwxDEBUG_LEVEL=0)
 
 FIND_PACKAGE(wxWidgets REQUIRED)
 
@@ -61,18 +67,17 @@ ENDIF(MSYS)
 INCLUDE(${wxWidgets_USE_FILE})
 
 FIND_PACKAGE(OpenGL)
-IF(OPENGL_GLU_FOUND)
+IF(OPENGL_FOUND)
 
-    SET(wxWidgets_USE_LIBS ${wxWidgets_USE_LIBS} gl)
     INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIR})
 
     MESSAGE (STATUS "Found OpenGL..." )
     MESSAGE (STATUS "    Lib: " ${OPENGL_LIBRARIES})
     MESSAGE (STATUS "    Include: " ${OPENGL_INCLUDE_DIR})
     ADD_DEFINITIONS(-DocpnUSE_GL)
-ELSE(OPENGL_GLU_FOUND)
+ELSE(OPENGL_FOUND)
     MESSAGE (STATUS "OpenGL not found..." )
-ENDIF(OPENGL_GLU_FOUND)
+ENDIF(OPENGL_FOUND)
 
 SET(BUILD_SHARED_LIBS TRUE)
 

@@ -29,8 +29,9 @@
  *         "It is BSD license, do with it what you will"                   *
  */
 
-
 #include "nmea0183.h"
+
+PLUGIN_BEGIN_NAMESPACE
 
 /*
 ** Author: Samuel R. Blackburn
@@ -40,19 +41,18 @@
 ** You can use it any way you like.
 */
 
- wxString& talker_id( const wxString &sentence )
-{
-   static wxString return_string;
+wxString& talker_id(const wxString& sentence) {
+  static wxString return_string;
 
-   return_string.Empty();
+  return_string.Empty();
 
-   if ( sentence.Len() >= 3 )
-   {
-      if ( sentence[ 0 ] == '$' )
-      {
-         return_string = sentence.Mid( 1, 2 );
-      }
-   }
+  if (sentence.Len() >= 3) {
+    if (sentence[0] == '$') {
+      return_string = sentence.Mid(1, 2);
+    }
+  }
 
-   return( return_string );
+  return (return_string);
 }
+
+PLUGIN_END_NAMESPACE
